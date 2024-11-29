@@ -10,4 +10,9 @@ public class CopyDto {
     private Long id;
     private Long titleId;
     private BookState state;
+
+    public CopyDto(Long titleId, BookState state) {
+        this.titleId = titleId;
+        this.state = state;
+    }
 }

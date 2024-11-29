@@ -12,4 +12,9 @@ public class ReaderDto {
     private String firstName;
     private String lastName;
     private LocalDate joiningDate;
+
+    public ReaderDto(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 }

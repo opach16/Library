@@ -12,4 +12,10 @@ public class TitleDto {
     private String title;
     private String author;
     private LocalDate releaseDate;
+
+    public TitleDto(String title, String author, LocalDate releaseDate) {
+        this.title = title;
+        this.author = author;
+        this.releaseDate = releaseDate;
+    }
 }

@@ -19,5 +19,11 @@ public class Reader {
     private String firstName;
     @NotNull(message = "Last name is required")
     private String lastName;
-    private LocalDate joiningDate = LocalDate.now();
+    @NotNull
+    private LocalDate joiningDate;
+
+    @PrePersist
+    protected void onCreate() {
+        joiningDate = LocalDate.now();
+    }
 }
