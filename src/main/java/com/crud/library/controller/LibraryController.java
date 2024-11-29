@@ -64,8 +64,7 @@ public class LibraryController {
     }
 
     @PatchMapping("/returnBook")
-    public ResponseEntity<Void> returnBook(@RequestParam Long loanId) throws NotFoundException {
-        loanService.returnBook(loanId);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<LoanDto> returnBook(@RequestParam Long loanId) throws NotFoundException {
+        return ResponseEntity.ok(loanMapper.loanToLoansDto(loanService.returnBook(loanId)));
     }
 }

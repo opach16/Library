@@ -34,7 +34,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
 @SpringJUnitWebConfig
 @WebMvcTest(LibraryController.class)
@@ -171,13 +171,25 @@ class LibraryControllerTest {
     @Test
     void shouldReturnBook() throws Exception {
         //given
-        doNothing().when(loanService).returnBook(any(Long.class));
+        LocalDate loanDate = LocalDate.of(2024, 10, 5);
+        LocalDate returnByDate = LocalDate.of(2024, 11, 5);
+        LocalDate returnDate = LocalDate.of(2024, 11, 1);
+        Loan loan = new Loan(1L, 1L, 1L, loanDate, returnByDate, returnDate);
+        LoanDto loanDto = new LoanDto(1L, 1L, 1L, loanDate, returnByDate, returnDate);
+        when(loanService.returnBook(any(Long.class))).thenReturn(loan);
+        when(loanMapper.loanToLoansDto(loan)).thenReturn(loanDto);
         //when & then
         mockMvc.perform(MockMvcRequestBuilders
                         .patch("/v1/library/returnBook")
-                        .queryParam("loanId", "4"))
-                .andExpect(MockMvcResultMatchers.status().isOk());
-        verify(loanService, times(1)).returnBook(any(Long.class));
+                        .queryParam("loanId", "4")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id", Matchers.is(1)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.copyId", Matchers.is(1)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.readerId", Matchers.is(1)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.loanDate", Matchers.is("2024-10-05")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.returnByDate", Matchers.is("2024-11-05")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.returnDate", Matchers.is("2024-11-01")));
     }
 
     private static final class LocalDateAdapter implements JsonSerializer<LocalDate> {

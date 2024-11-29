@@ -37,7 +37,7 @@ public class LoanService {
         return loan;
     }
 
-    public void returnBook(Long loanId) throws NotFoundException {
+    public Loan returnBook(Long loanId) throws NotFoundException {
         Loan loan = loanRepository.findById(loanId)
                 .orElseThrow(() -> new NotFoundException("Loan not found"));
         Copy copy = copyRepository.findById(loan.getCopyId())
@@ -47,5 +47,6 @@ public class LoanService {
             copy.setState(BookState.AVAILABLE);
             copyService.updateCopyState(copy.getId(), BookState.AVAILABLE);
         }
+        return loan;
     }
 }
