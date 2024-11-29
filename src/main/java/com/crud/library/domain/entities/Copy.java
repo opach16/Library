@@ -1,10 +1,7 @@
 package com.crud.library.domain.entities;
 
 import com.crud.library.domain.BookState;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
@@ -14,10 +11,9 @@ import lombok.*;
 @AllArgsConstructor
 @Entity
 @Table(name = "COPIES")
-public class CopiesEntity {
+public class Copy {
     @Id
-    @GeneratedValue
-    @NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull
     private Long titleId;

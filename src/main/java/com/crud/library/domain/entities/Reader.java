@@ -1,13 +1,8 @@
 package com.crud.library.domain.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 
@@ -16,10 +11,9 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Entity
 @Table(name = "READERS")
-public class ReadersEntity {
+public class Reader {
     @Id
-    @GeneratedValue
-    @NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull(message = "First name is required")
     private String firstName;

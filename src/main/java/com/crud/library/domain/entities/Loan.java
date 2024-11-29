@@ -1,15 +1,8 @@
 package com.crud.library.domain.entities;
 
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 
@@ -19,10 +12,9 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Entity
 @Table(name = "LOANS")
-public class LoansEntity {
+public class Loan {
     @Id
-    @GeneratedValue
-    @NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull
     private Long copyId;
@@ -33,7 +25,7 @@ public class LoansEntity {
     private LocalDate returnByDate = loanDate.plusDays(30);
     private LocalDate returnDate;
 
-    public LoansEntity(Long copyId, Long readerId) {
+    public Loan(Long copyId, Long readerId) {
         this.copyId = copyId;
         this.readerId = readerId;
     }
